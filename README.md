@@ -1,147 +1,121 @@
-# Notion Embedded - Codeable Labs
+# Notion Embedded - API Solution
 
-Aplicación React que permite el acceso mediante login a una página que embebe contenido de Notion.
+Este proyecto implementa una aplicación Next.js con autenticación JWT y contenido de Notion usando la **API oficial de Notion**, garantizando que la URL esté completamente oculta.
 
-## 🚀 Características
+## Características
 
-- ✅ Sistema de autenticación con datos mockeados
-- ✅ Login con validación de credenciales
-- ✅ Página "Welcome Labs" con Notion embebido
-- ✅ **Sistema inteligente de embebido de Notion** que prueba múltiples métodos
-- ✅ Fallback automático entre diferentes servicios de embebido
-- ✅ Diseño moderno y responsivo
-- ✅ Rutas protegidas
-- ✅ Persistencia de sesión con localStorage
+- ✅ Autenticación JWT
+- ✅ Login con usuarios mock
+- ✅ Contenido de Notion usando API oficial
+- ✅ **URL completamente oculta** (sin iframe)
+- ✅ Renderizado personalizado del contenido
+- ✅ Autenticación completa
 
-## 📋 Requisitos Previos
+## Tecnologías
 
-- Node.js (versión 16 o superior)
-- npm o yarn
+- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **Notion**: API oficial (@notionhq/client)
+- **Autenticación**: JWT (jsonwebtoken)
+- **Estilos**: Tailwind CSS
 
-## 🛠️ Instalación
+## Instalación
 
-1. Clona el repositorio (si aún no lo has hecho)
-2. Instala las dependencias:
+1. Instalar dependencias:
 
 ```bash
 npm install
 ```
 
-## 🎯 Uso
+2. Configurar variables de entorno:
 
-### Iniciar el servidor de desarrollo
+```bash
+cp .env.example .env.local
+```
+
+3. Configurar integración de Notion (ver `NOTION_API_SETUP.md`)
+
+4. Ejecutar en desarrollo:
 
 ```bash
 npm run dev
 ```
 
-La aplicación estará disponible en `http://localhost:5173`
+## Usuarios de Prueba
 
-### Construir para producción
+- `admin / admin123`
+- `user / user123`
+- `demo / demo123`
+
+## Estructura del Proyecto
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/login/              # Endpoint de login
+│   │   └── notion/
+│   │       └── api-content/         # API de Notion
+│   ├── login/                       # Página de login
+│   ├── welcome/                     # Página de bienvenida
+│   └── layout.tsx                   # Layout principal
+├── components/
+│   ├── LoginForm.tsx                # Formulario de login
+│   └── NotionAPIEmbed.tsx           # Componente con API de Notion
+├── contexts/
+│   └── AuthContext.tsx              # Context de autenticación
+└── lib/
+    └── auth.ts                      # Funciones de autenticación
+```
+
+## Variables de Entorno
+
+```env
+JWT_SECRET=mi_super_secreto_jwt_para_notion_embedded_2024
+NOTION_API_KEY=secret_tu_integration_token_aqui
+NOTION_PAGE_ID=28be9e2e2a388084842ff409d5ee27fd
+```
+
+## Configuración de Notion
+
+Para configurar la integración con Notion, sigue las instrucciones detalladas en `NOTION_API_SETUP.md`.
+
+**Pasos rápidos:**
+
+1. Crear integración en [https://www.notion.so/my-integrations](https://www.notion.so/my-integrations)
+2. Copiar el token de integración
+3. Compartir la página de Notion con la integración
+4. Configurar las variables de entorno
+
+## Desarrollo
+
+Para desarrollo local:
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en `http://localhost:3000`
+
+## Producción
+
+Para construir para producción:
 
 ```bash
 npm run build
+npm start
 ```
 
-### Vista previa de la build
+## Ventajas de esta Solución
 
-```bash
-npm run preview
-```
+- **✅ URL completamente oculta** - No hay iframe, todo se renderiza en tu servidor
+- **✅ Contenido real de Notion** - Obtienes el contenido directamente de Notion
+- **✅ Autenticación completa** - Control total sobre quién accede
+- **✅ Personalización total** - Puedes diseñar la interfaz como quieras
+- **✅ Rendimiento controlado** - No depende de la velocidad de Notion
 
-## 🔐 Credenciales de Acceso
+## Limitaciones
 
-Puedes usar cualquiera de estos usuarios para ingresar:
-
-| Usuario | Contraseña |
-| ------- | ---------- |
-| admin   | admin123   |
-| user    | user123    |
-| demo    | demo123    |
-
-## 📁 Estructura del Proyecto
-
-```
-notion-embedded/
-├── src/
-│   ├── components/
-│   │   ├── SimpleNotionEmbed.jsx # Componente simple de embebido
-│   │   └── SimpleNotionEmbed.css # Estilos del embebido
-│   ├── context/
-│   │   └── AuthContext.jsx       # Contexto de autenticación
-│   ├── pages/
-│   │   ├── Login.jsx             # Página de login
-│   │   ├── Login.css             # Estilos del login
-│   │   ├── WelcomeLabs.jsx       # Página principal con Notion
-│   │   └── WelcomeLabs.css       # Estilos de la página principal
-│   ├── App.jsx                   # Componente principal con rutas
-│   ├── main.jsx                  # Punto de entrada
-│   └── index.css                 # Estilos globales
-├── index.html                    # HTML base
-├── vite.config.js               # Configuración de Vite
-└── package.json                 # Dependencias del proyecto
-```
-
-## 🎨 Características del Diseño
-
-- Interfaz moderna con gradientes y animaciones
-- Diseño responsivo para móviles y desktop
-- Transiciones suaves y efectos hover
-- Tarjetas con sombras y bordes redondeados
-- Feedback visual para interacciones del usuario
-
-## 🔒 Seguridad
-
-⚠️ **Nota importante**: Esta aplicación usa datos mockeados solo para propósitos de demostración. En un entorno de producción, deberías implementar:
-
-- Autenticación real con backend
-- Tokens JWT o sesiones seguras
-- Encriptación de contraseñas
-- Protección CSRF
-- Rate limiting
-
-## 🌐 Notion Embebido Real
-
-La aplicación utiliza **EmbedNotion.com** para embebir el contenido real de Notion:
-
-### Tecnología Utilizada:
-
-- **EmbedNotion.com**: Servicio oficial para embebido de páginas de Notion
-- **Iframe directo**: Integración simple y confiable
-
-### Página de Notion:
-
-[Sesiones 1-1](https://www.notion.so/Sesiones-1-1-28be9e2e2a388084842ff409d5ee27fd)
-
-### Cómo Funciona:
-
-1. **Página publicada**: La página de Notion está configurada como pública
-2. **EmbedNotion**: Genera el iframe embebible
-3. **Integración directa**: El iframe se muestra directamente en la aplicación
-4. **Experiencia nativa**: El contenido se ve exactamente como en Notion
-
-### Iframe Utilizado:
-
-```html
-<iframe
-  src="https://v2-embednotion.com/28be9e2e2a388084842ff409d5ee27fd"
-  style="width: 100%; height: 500px; border: 2px solid #ccc; border-radius: 10px;"
->
-</iframe>
-```
-
-## 📝 Tecnologías Utilizadas
-
-- React 18
-- Vite
-- React Router DOM
-- Context API para manejo de estado
-- CSS moderno con animaciones y gradientes
-
-## 🤝 Contribuir
-
-Si deseas mejorar la aplicación, siéntete libre de hacer un fork y enviar un pull request.
-
-## 📄 Licencia
-
-Este proyecto es de código abierto y está disponible bajo la licencia MIT.
+- **⚠️ Solo contenido estático** - No tendrás las funciones interactivas de Notion
+- **⚠️ Sin edición en tiempo real** - Los usuarios no podrán editar directamente
+- **⚠️ Sin colaboración** - No habrá comentarios, sugerencias, etc.
