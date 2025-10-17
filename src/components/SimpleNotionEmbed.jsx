@@ -4,7 +4,7 @@ const SimpleNotionEmbed = () => {
   return (
     <div className="simple-notion-container">
       <iframe
-        src="https://v2-embednotion.com/1dc46e14a97d80d585affc7123901d7b"
+        src="https://v2-embednotion.com/28be9e2e2a388084842ff409d5ee27fd"
         className="notion-iframe"
         title="Notion Content"
         loading="lazy"
